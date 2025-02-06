@@ -1,11 +1,17 @@
 import express from "express";
 import { signUpUser, loginUser, forgotPassword, resetPassword, checkForToken } from "../controllers/auth.controller.js";
-const router = express.Router();
+const authRouter = express.Router();
 
 
-router.post("/signup", signUpUser);
-router.post("/login", loginUser);
-router.post("/forgot-password", checkForToken, forgotPassword);
-router.post("/reset-password/:token", checkForToken, resetPassword);
-
-export { router };
+authRouter.post("/signup", signUpUser);
+authRouter.post("/login", loginUser);
+authRouter.post("/forgot-password", checkForToken, forgotPassword);
+authRouter.post("/reset-password/:token", checkForToken, resetPassword);
+authRouter.post("/", async (req, res) => {
+    try {
+        return res.json({ msg: "This is homePage." });
+    } catch (error) {
+        return res.json({ error: error.message });
+    }
+})
+export { authRouter };

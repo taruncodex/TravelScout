@@ -5,7 +5,7 @@ import morgan from "morgan";
 import path from "path";
 import "dotenv/config";
 import { dbConnection } from "./config/dbConnection.js";
-import { router } from "./routers/router.js";
+import { authRouter } from "./routers/router.js";
 
 const app = express();
 app.use(cookieParser());
@@ -15,7 +15,7 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(router);
+app.use(authRouter);
 
 // Connecting the mongoDB and listen at port 
 const PORT = process.env.PORT || 3000;

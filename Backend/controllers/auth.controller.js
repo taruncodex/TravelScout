@@ -100,7 +100,7 @@ export const loginUser = async (req, res) => {
 
         if (!isValidUser) {
             console.log("Incorrect password");
-            return res.status(400).json({ message: "Incorrect email or password", error: error.message });
+            return res.status(400).json({ message: "Incorrect email or password" });
         }
 
         // Creating accessToken Token
@@ -133,16 +133,13 @@ export const loginUser = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
-        console.log(accessToken);
-        console.log(req.cookies.accessToken);
-        console.log(refreshToken);
+        console.log(req.cookies);
 
         // Send role of the user with success message. 
         res.status(200).json({ message: "login successful" });
-
     } catch (error) {
-        console.log(error.message);
-        res.status(401).json(error.message);
+        console.log({ err: error.message });
+        return res.status(401).json({ err: error.message });
     }
 }
 
@@ -168,6 +165,7 @@ const sendResetEmail = async (email, token) => {
 
 export const forgotPassword = async (req, res) => {
     try {
+        console.log("Entered in the Forget Password.")
         // Take the Email the from the user
         const { email } = req.body;
         console.log(email);
@@ -180,18 +178,17 @@ export const forgotPassword = async (req, res) => {
             return res.status(400).json({ message: "user not exist for this email" });
         }
 
-
         // Create the resetToken 
         const resetToken = jwt.sign({ id: user._id, name: user.name }, process.env.JWT_RESET_PASS, { expiresIn: "5m" });
-
-
+        console.log("Reset Password is generated")
         // add resetToken in cookie
         res.cookie("resetToken", resetToken, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: "strict",
             maxAge: 15 * 60 * 1000,
         });
+        console.log("Reset Password add to cookie.")
 
         // Send reset link via email
         await sendResetEmail(email, resetToken);
@@ -209,17 +206,21 @@ export const forgotPassword = async (req, res) => {
 // Logic for ResetPassword 
 export const resetPassword = async (req, res) => {
     try {
+        console.log("Entered in the resetPassword.")
         const { token } = req.params;
+        console.log({ token })
         // get the password 
         const { password } = req.body;
         // get resetToken from the cookies 
+        console.log({ cookie: req.cookies });
         const resetToken = req.cookies.resetToken;
-        console.log(resetToken);
+        console.log({ resetToken });
 
         if (!resetToken) {
             console.log("reset token has been deleted from cookies");
             return res.status(400).json({ message: "resetToken was valid for only 15 minutes" });
         }
+
 
         if (token != resetToken) {
             return res.status(400).json({ message: "Invalid or expired token" });

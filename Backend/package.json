@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -24,5 +23,6 @@
     "nodemailer": "^6.10.0",
     "path": "^0.12.7",
     "url": "^0.11.4"
+
   }
 }
