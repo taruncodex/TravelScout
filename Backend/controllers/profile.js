@@ -1,37 +1,52 @@
-import User from "../models/profileModel.js";
+import Profile from "../models/profileModel.js";
+import mongoose from "mongoose";
 
-//Get User Profile----->
+//Get User Profile------>
 export const getUserProfile = async (req, res) => {
   try {
-    // Populate is not working fine.  We will use lookup instead. 
-    const user = await User.findById(req.params.id)
-    //   .populate(
-    //   "savedDestinations travelHistory.destination"
-    // );
+    const userId = new mongoose.Types.ObjectId(req.params.id);
 
-    if (!user) {
+    const user = await Profile.aggregate([
+      { $match: { _id: userId } },
+      {
+        $lookup: {
+          from: "destinations",
+          localField: "savedDestinations",
+          foreignField: "_id",
+          as: "savedDestinations",
+        },
+      },
+      {
+        $lookup: {
+          from: "destinations",
+          localField: "travelHistory.destination",
+          foreignField: "_id",
+          as: "travelHistory",
+        },
+      },
+    ]);
+
+    if (!user.length) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.json(user);
+
+    res.json(user[0]); // Since aggregate returns an array, we take the first item.
   } catch (error) {
     return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
 
-// Update User Profile------->
+//Update User Profile------>
 export const updateUserProfile = async (req, res) => {
   try {
-
-    // Add more specifically what to update or not for example if user do not entered the name just mentioned the email then we need to update email only
-    // as other field will contain the undefined and can be updated.
-
+    const updates = {};
     const { name, email, profilePicture } = req.body;
 
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      { name, email, profilePicture },
-      { new: true }
-    );
+    if (name) updates.name = name;
+    if (email) updates.email = email;
+    if (profilePicture) updates.profilePicture = profilePicture;
+
+    const updatedUser = await Profile.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true });
 
     res.json(updatedUser);
   } catch (error) {
@@ -39,15 +54,16 @@ export const updateUserProfile = async (req, res) => {
   }
 };
 
-//Update User Preferences----->
+//Update User Preferences------->
 export const updateUserPreferences = async (req, res) => {
   try {
+    const updates = {};
     const { budget, interests } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      { preferences: { budget, interests } },
-      { new: true }
-    );
+
+    if (budget) updates["preferences.budget"] = budget;
+    if (interests) updates["preferences.interests"] = interests;
+
+    const updatedUser = await Profile.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true });
 
     res.json(updatedUser);
   } catch (error) {
@@ -55,47 +71,65 @@ export const updateUserPreferences = async (req, res) => {
   }
 };
 
-//Save a Destination------>
+//Save a Destination (Avoid duplicates)
 export const saveDestination = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    const user = await Profile.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     const { destinationId } = req.body;
+
     if (!user.savedDestinations.includes(destinationId)) {
       user.savedDestinations.push(destinationId);
       await user.save();
     }
 
-    res.json(user);
+    res.json({ message: "Destination saved", user });
   } catch (error) {
     return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
 
-//Add Travel History------>
+//Add Travel History (Avoid duplicate entries)
 export const addTravelHistory = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await Profile.findById(req.params.id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const { destinationId } = req.body;
-    user.travelHistory.push({ destination: destinationId });
-    await user.save();
 
-    res.json(user);
+    const alreadyVisited = user.travelHistory.some(
+      (entry) => entry.destination.toString() === destinationId
+    );
+
+    if (!alreadyVisited) {
+      user.travelHistory.push({ destination: destinationId });
+      await user.save();
+    }
+
+    res.json({ message: "Travel history updated", user });
   } catch (error) {
     return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
 
-
+//Add to Wishlist (Avoid duplicates)
 export const addWishlist = async (req, res) => {
   try {
+    const user = await Profile.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
+    const { destinationId } = req.body;
+
+    if (!user.wishlist) user.wishlist = [];
+
+    if (!user.wishlist.includes(destinationId)) {
+      user.wishlist.push(destinationId);
+      await user.save();
+    }
+
+    res.json({ message: "Destination added to wishlist", user });
   } catch (error) {
     return res.status(500).json({ error: "Server error", err: error.message });
   }
-}
+};
