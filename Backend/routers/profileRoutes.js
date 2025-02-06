@@ -1,12 +1,13 @@
 import express from "express";
 import { getUserProfile, updateUserProfile, updateUserPreferences, saveDestination, addTravelHistory } from "../controllers/profile.js";
+import { checkForToken } from "../controllers/auth.controller.js";
 
 const profileRouter = express.Router();
 
-router.get("/:id", getUserProfile);
-router.put("/:id", updateUserProfile);
-router.put("/:id/preferences", updateUserPreferences);
-router.post("/:id/saved-destinations", saveDestination);
-router.post("/:id/travel-history", addTravelHistory);
+profileRouter.get("/:id",  getUserProfile);
+profileRouter.put("/:id", updateUserProfile);
+profileRouter.put("/:id/preferences", updateUserPreferences);
+profileRouter.post("/:id/saved-destinations",  saveDestination);
+profileRouter.post("/:id/travel-history", addTravelHistory);
 
 export default profileRouter;
