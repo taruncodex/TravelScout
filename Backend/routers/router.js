@@ -2,7 +2,7 @@ import express from "express";
 import { signUpUser, loginUser, forgotPassword, resetPassword, checkForToken } from "../controllers/auth.controller.js";
 const authRouter = express.Router();
 
-
+// http:localhost/signup
 authRouter.post("/signup", signUpUser);
 authRouter.post("/login", loginUser);
 authRouter.post("/forgot-password", checkForToken, forgotPassword);

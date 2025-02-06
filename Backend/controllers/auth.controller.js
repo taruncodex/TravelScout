@@ -34,7 +34,7 @@ export const signUpUser = async (req, res) => {
 
         // Get data from the user
         const { email, name, password, phone } = req.body;
-
+        console.log(email, name, password, phone)
         // Verify if user enter the fields or not
         if (!email || !name || !password || !phone) {
             return res.status(400).json({ msg: "email , name, password and phone are required." })

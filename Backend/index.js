@@ -17,8 +17,10 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use(morgan("dev"));
+
 app.use(authRouter);
-app.use(checkForToken, profileRouter);
+
+app.use("/user", profileRouter);
 
 // Connecting the mongoDB and listen at port 
 const PORT = process.env.PORT || 3000;
