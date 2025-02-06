@@ -9,5 +9,6 @@ profileRouter.put("/:id", updateUserProfile);
 profileRouter.put("/:id/preferences", updateUserPreferences);
 profileRouter.post("/:id/saved-destinations",  saveDestination);
 profileRouter.post("/:id/travel-history", addTravelHistory);
+profileRouter.post("/:id/add-wishlist", addWishlist);
 
 export default profileRouter;

@@ -14,7 +14,7 @@ export const getUserProfile = async (req, res) => {
     }
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: "Server error", err: error.messa });
+    return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
 
@@ -24,7 +24,7 @@ export const updateUserProfile = async (req, res) => {
 
     // Add more specifically what to update or not for example if user do not entered the name just mentioned the email then we need to update email only
     // as other field will contain the undefined and can be updated.
-    
+
     const { name, email, profilePicture } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -35,7 +35,7 @@ export const updateUserProfile = async (req, res) => {
 
     res.json(updatedUser);
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
 
@@ -51,7 +51,7 @@ export const updateUserPreferences = async (req, res) => {
 
     res.json(updatedUser);
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
 
@@ -71,7 +71,7 @@ export const saveDestination = async (req, res) => {
 
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
 
@@ -87,6 +87,15 @@ export const addTravelHistory = async (req, res) => {
 
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error", err: error.message });
   }
 };
+
+
+export const addWishlist = async (req, res) => {
+  try {
+
+  } catch (error) {
+    return res.status(500).json({ error: "Server error", err: error.message });
+  }
+}
