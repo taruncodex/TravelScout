@@ -8,6 +8,7 @@ import { dbConnection } from "./config/dbConnection.js";
 import { authRouter } from "./routers/router.js";
 import profileRouter from "./routers/profileRoutes.js";
 import { checkForToken } from "./controllers/auth.controller.js";
+import { siteRouters } from "./routers/travel.Scout.Routes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -18,8 +19,9 @@ app.use(cors({
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.use(authRouter);
 
+app.use(authRouter);
+app.use(siteRouters);
 app.use("/user", profileRouter);
 
 // Connecting the mongoDB and listen at port 
