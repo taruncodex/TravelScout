@@ -8,20 +8,26 @@ import { dbConnection } from "./config/dbConnection.js";
 import { authRouter } from "./routers/router.js";
 import profileRouter from "./routers/profileRoutes.js";
 import { checkForToken } from "./controllers/auth.controller.js";
-import { siteRouters } from "./routers/travel.Scout.Routes.js";
+import { siteRouter } from "./routers/travel.Scout.Routes.js";
 
 const app = express();
 app.use(cookieParser());
-app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
-}))
+const frontendUrl = ["http://localhost:3000"];
+
+const corsOptions = {
+    origin: frontendUrl,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 
 
 app.use(authRouter);
-app.use(siteRouters);
+app.use(siteRouter);
 app.use("/user", profileRouter);
 
 // Connecting the mongoDB and listen at port 

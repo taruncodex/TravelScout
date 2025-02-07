@@ -5,15 +5,10 @@ const destinationSchema = new mongoose.Schema({
   location: { type: String, required: true },
   description: { type: String, required: true },
 
-  HotelDetails: [
-    {
-      name: { type: String },
-      image: { type: String },
-      rating: { type: Number, min: 1, max: 5 },
-      address: { type: String },
-      price: { type: Number },
-    },
-  ],
+  coordinates: { // Geo-coordinates for map integration
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true },
+  },
 
   // Attractions in the destination
   Attractions: {
@@ -24,7 +19,7 @@ const destinationSchema = new mongoose.Schema({
 
   locationType: [
     {
-      type: String,enum: ["Mountains", "Forest","Beaches","Luxury","Trekking", "Spiritual", "Heritage", "Religious", "Festival",],
+      type: String, enum: ["Mountains", "Forest", "Nature", "Beaches", "Luxury", "Trekking", "Spiritual", "Heritage", "Religious", "Festival",],
     },
   ],
 
