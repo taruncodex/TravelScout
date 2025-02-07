@@ -1,7 +1,9 @@
 import express from "express";
 const siteRouter = express.Router();
-import { getHomePageData, getTrendingDestinations, getDiscoverDestinations, getUserTrips, getTravelStyles, showDestination } from "../controllers/explore.controller";
-
+import { getHomePageData, getTrendingDestinations, getDiscoverDestinations, getUserTrips, getTravelStyles, showDestination } from "../controllers/explore.controller.js";
+import Destination from "../models/destinationModel.js";
+import Hotel from "../models/hotelModel.js";
+import Review from "../models/reviewModel.js";
 // Get top 3 trending cities for homepage
 siteRouter.get("/homepage", getHomePageData);
 
@@ -20,7 +22,40 @@ siteRouter.get("/travelstyle/:locationType", getTravelStyles);
 siteRouter.get("/destination/:cityId", showDestination);
 
 
+siteRouter.post("/postdes", async (req, res) => {
+    try {
+        console.log(req.body);
+        const data = req.body;
+        await Destination.create(req.body);
 
+        res.status(200).json({ msg: "Destination details added. ", data });
+    } catch (error) {
+        return res.status(500).json({ msg: "Internal Server Error", err: error.message });
+    }
+})
+
+siteRouter.post("/posthotel", async (req, res) => {
+    try {
+        console.log(req.body);
+        const data = req.body;
+        await Hotel.create(req.body);
+
+        res.status(200).json({ msg: "Hotel details added.", data });
+    } catch (error) {
+        return res.status(500).json({ msg: "Internal Server Error", err: error.message });
+    }
+})
+
+siteRouter.post("/postreview", async (req, res) => {
+    try {
+        console.log(req.body);
+        const data = req.body;
+        await Review.create(req.body);
+        res.status(200).json({ msg: "Review added.", data });
+    } catch (error) {
+        return res.status(500).json({ msg: "Internal Server Error", err: error.message });
+    }
+})
 
 
 export { siteRouter }; 

@@ -1,5 +1,6 @@
 import Destination from "../models/destinationModel.js";
-import User from "../models/userModel.js"
+import Review from "../models/reviewModel.js";
+import { User } from "../models/userModel.js"
 
 //Get Home Page Data (Trending & New Destinations)
 export const getHomePageData = async (req, res) => {
@@ -8,7 +9,7 @@ export const getHomePageData = async (req, res) => {
         const trendingDestinations = await Destination.find().sort({ rating: -1 }).limit(4);
         const newDestinations = await Destination.find().sort({ createdAt: -1 }).limit(4);
 
-        return res.json({trendingDestinations,newDestinations});
+        return res.json({ trendingDestinations, newDestinations });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
@@ -18,8 +19,13 @@ export const getHomePageData = async (req, res) => {
 export const getTrendingDestinations = async (req, res) => {
     try {
         //Fetch the top destinations with the highest rating & Sort by rating in descending order
+
+        const data = await Review.find({ userId: "65a4cfae9b1e8a001c456783" }).populate("hotelId").exec();
+        console.info({ data }) ;
+
         const trendingDestinations = await Destination.find().sort({ rating: -1 }).limit(10);
-        return res.json(trendingDestinations);
+        console.log(trendingDestinations);
+        return res.json({ data: trendingDestinations });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
@@ -40,13 +46,14 @@ export const getDiscoverDestinations = async (req, res) => {
 export const getUserTrips = async (req, res) => {
     try {
         //Fetch the user from the database and populate related destination details
-        const userId = req.user._id; 
+        const userId = req.user._id;
         const user = await User.findById(userId).populate("travelHistory.destination savedDestinations");
 
         if (!user) {
             return res.status(404).json({ msg: "User not found" });
         }
-        return res.json({savedDestinations: user.savedDestinations,pastTrips: user.travelHistory
+        return res.json({
+            savedDestinations: user.savedDestinations, pastTrips: user.travelHistory
         });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
