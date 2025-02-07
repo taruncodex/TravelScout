@@ -2,7 +2,7 @@ import { ReturnDocument } from "mongodb"
 
 export const getHomePageData = async (req, res) => {
     try {
-
+         // 
     } catch (error) {
         return res.status.json({ msg: "Internal Server Error", err: error.message });
     }
