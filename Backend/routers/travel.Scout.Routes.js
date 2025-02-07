@@ -38,7 +38,7 @@ siteRouter.post("/posthotel", async (req, res) => {
     try {
         console.log(req.body);
         const data = req.body;
-        await Hotel.create(req.body);
+        await Hotel.insertMany(req.body);
 
         res.status(200).json({ msg: "Hotel details added.", data });
     } catch (error) {
@@ -50,7 +50,7 @@ siteRouter.post("/postreview", async (req, res) => {
     try {
         console.log(req.body);
         const data = req.body;
-        await Review.create(req.body);
+        await Review.insertMany(req.body);
         res.status(200).json({ msg: "Review added.", data });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });

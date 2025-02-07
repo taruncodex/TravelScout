@@ -10,30 +10,87 @@ export const getHomePageData = async (req, res) => {
         // the reviews collection then make it flat then we can perform the given function
         // We need aggregation for this
 
-        //Fetch the top  highest-rated destinations & latest 4 destinations, Sort in descending order
-        const trendingDestinations = await Destination.find().sort({ rating: -1 }).limit(4);
-        const newDestinations = await Destination.find().sort({ createdAt: -1 }).limit(4);
+        // //Fetch the top  highest-rated destinations & latest 3 destinations, Sort in descending order
 
-        return res.json({ trendingDestinations, newDestinations });
+        const data = await Review.aggregate([{
+            $group: {
+                _id: "$destinationId",
+                avgRating: { $avg: "$rating" }, // Calculate the average rating
+                totalReviews: { $sum: 1 },
+            }
+        }, { $sort: { avgRating: -1, totalReviews: -1 } }, { $limit: 3 },
+        {
+            $lookup: {
+                from: "destinations",
+                localField: "_id",
+                foreignField: "_id",
+                as: "destination"
+            }
+        }, { $unwind: "$destination" },
+        {
+            $project: {
+                _id: "$destination._id",
+                name: "$destination.name",
+                location: "$destination.location",
+                estimatedCost: "$destination.estimatedCost",
+                weather: "$destination.weather",
+                locationType: "$destination.locationType",
+                avgRating: 1,
+                totalReviews: 1,
+            }
+        }
+
+        ])
+        console.info({ data });
+        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
 };
 
+
 //Get Trending Destinations (Highest Rated)
 export const getTrendingDestinations = async (req, res) => {
     try {
 
-        // Similar logic as getHomePageData 
+        // Similar logic as getHomePageData
 
         //Fetch the top destinations with the highest rating & Sort by rating in descending order
 
-        const data = await Review.find({ userId: "65a4cfae9b1e8a001c456783" }).populate("hotelId").exec();
-        console.info({ data }) ;
+        // Using aggregation to get top 10 destination data 
 
-        const trendingDestinations = await Destination.find().sort({ rating: -1 }).limit(10);
-        console.log(trendingDestinations);
-        return res.json({ data: trendingDestinations });
+        // group -> dort -> lookup -> unwind -> project .
+        const data = await Review.aggregate([{
+            $group: {
+                _id: "$destinationId",
+                avgRating: { $avg: "$rating" }, // Calculate the average rating
+                totalReviews: { $sum: 1 },
+            }
+        }, { $sort: { avgRating: -1, totalReviews: -1 } }, { $limit: 10 },
+        {
+            $lookup: {
+                from: "destinations",
+                localField: "_id",
+                foreignField: "_id",
+                as: "destination"
+            }
+        }, { $unwind: "$destination" },
+        {
+            $project: {
+                _id: "$destination._id",
+                name: "$destination.name",
+                location: "$destination.location",
+                estimatedCost: "$destination.estimatedCost",
+                weather: "$destination.weather",
+                locationType: "$destination.locationType",
+                avgRating: 1,
+                totalReviews: 1,
+            }
+        }
+
+        ])
+        console.info({ data });
+        return res.status(200).json({ msg: "Top 10 Trending Destinations: ", cities: data });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
@@ -42,12 +99,22 @@ export const getTrendingDestinations = async (req, res) => {
 //Get Discover Destinations (Random Picks)
 export const getDiscoverDestinations = async (req, res) => {
     try {
-
-        // $sample will perform sort if we are trying ask for more than 5% of actual documents.
-        // For 4 docs , we must have 
-        //Fetch random destinations from the database
-        const discoverDestinations = await Destination.aggregate([{ $sample: { size: 4 } }]);
-        return res.json(discoverDestinations);
+        //Fetch destinations from the database and limit to 10 documents.
+        const discoverDestinations = await Destination.aggregate([{ $match: {} }, {
+            $limit: 10
+        }, {
+            $project: {
+                _id: 1,
+                name: 1,
+                location: 1,
+                description: 1,
+                locationType: 1,
+                bestTimeToVisit: 1,
+                weather: 1,
+                estimatedCost: 1
+            }
+        }])
+        return res.status(200).json({ cities: discoverDestinations });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
@@ -79,9 +146,9 @@ export const getTravelStyles = async (req, res) => {
         // Take the locationType then fetch the data based on the fetch and send 
         const { locationType } = req.params;
         console.info({ locationType });
-        
+
         const data = await Destination.find({ locationType: locationType });
-        console.log(data); 
+        console.log(data);
 
         if (!data) {
             return res.status(404).json({ Message: `No Destination is available with ${locationType}` });

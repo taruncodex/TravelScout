@@ -13,7 +13,7 @@ const hotelSchema = new mongoose.Schema({
 
         pricePerNight: { type: Number, required: true },
 
-        roomTypes: [{ type: String, enum: ["Deluxe", "Suite", "Family", "Standard", "Royal Suite"] }],
+        roomTypes: [{ type: String, enum: ["Deluxe", "Suite", "Family", "Standard", "Executive", "Royal Suite", "Presidential Suite"] }],
 
         contact: {
                 phone: { type: String, match: [/^\d{10}$/, "Phone number must be 10 digits"] },
