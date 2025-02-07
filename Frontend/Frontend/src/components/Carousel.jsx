@@ -18,9 +18,9 @@ const Carousel = () => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-lg">
+    <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-lg mt-10">
       <div
-        className="flex transition-transform duration-1000 ease-in-out"
+        className="flex transition-transform duration-1000 ease-in-out w-full"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images.map((img, index) => (
@@ -29,10 +29,11 @@ const Carousel = () => {
       </div>
       <div className="text-center">
         <h2 className="text-black text-3xl font-bold">The 2025 TravelScout Trendcast</h2>
-        <p className="text-black text-lg mt-2">Forecasting the future of travel—now.</p>
-        <button className="mt-4 px-6 py-2 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition ">
+        <p className="text-black text-xl font-bold mt-2">Forecasting the future of travel—now.</p>
+        <button className="mt-4 px-6 py-2 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition cursor-pointer">
             Check it out
         </button>
+        
       </div>
     </div>
   );
