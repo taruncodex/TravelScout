@@ -1,14 +1,15 @@
 import express from "express";
-import { getUserProfile, updateUserProfile, updateUserPreferences, saveDestination, addTravelHistory, addWishlist } from "../controllers/profile.js";
+import { getUserProfile, updateUserProfile, updateUserPreferences, deleteProfile, addTravelHistory, addWishlist } from "../controllers/profile.js";
+
 import { checkForToken } from "../controllers/auth.controller.js";
 
 const profileRouter = express.Router();
 
-profileRouter.get("/:id", getUserProfile);
-profileRouter.put("/:id", updateUserProfile);
-profileRouter.put("/:id/preferences", updateUserPreferences);
-profileRouter.post("/:id/saved-destinations", saveDestination);
-profileRouter.post("/:id/travel-history", addTravelHistory);
-profileRouter.post("/:id/add-wishlist", addWishlist);
-
+//Protect routes using checkForToken middleware
+profileRouter.get("/:id", checkForToken, getUserProfile);
+profileRouter.put("/:id", checkForToken, updateUserProfile);
+profileRouter.post("/:id/preferences", checkForToken, updateUserPreferences);
+profileRouter.post("/:id/travel-history", checkForToken, addTravelHistory);
+profileRouter.post("/:id/add-wishlist", checkForToken, addWishlist);
+profileRouter.delete("/:id", checkForToken, deleteProfile);
 export default profileRouter;
