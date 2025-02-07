@@ -5,15 +5,15 @@ const destinationSchema = new mongoose.Schema({
   location: { type: String, required: true },
   description: { type: String, required: true },
 
-  HotelDetails: [
-    {
-      name: { type: String },
-      image: { type: String },
-      rating: { type: Number, min: 1, max: 5 },
-      address: { type: String },
-      price: { type: Number },
-    },
-  ],
+  // HotelDetails: [
+  //   {
+  //     name: { type: String },
+  //     image: { type: String },
+  //     rating: { type: Number, min: 1, max: 5 },
+  //     address: { type: String },
+  //     price: { type: Number },
+  //   },
+  // ],
 
   // Attractions in the destination
   Attractions: {
