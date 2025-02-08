@@ -1,0 +1,20 @@
+[{
+    "_id": "65a4cfae9b1e8a001c456782",
+    "name": "The Grand Hilltop Resort",
+    "destinationId": "65b3f1e8e2c3a24d8e2d6b9a",
+    "address": "Mall Road, Mussoorie, Uttarakhand, India",
+    "images": [
+      "https://example.com/hotel1.jpg",
+      "https://example.com/hotel2.jpg"
+    ],
+    "rating": 4.5,
+    "reviews": ["65b3f1e8e2c3a24d8e2d6b9b", "65b3f1e8e2c3a24d8e2d6b9c"],
+    "pricePerNight": 5500,
+    "roomTypes": ["Deluxe", "Suite", "Family"],
+    "contact": {
+      "phone": "9876543210",
+      "email": "contact@hilltopresort.com"
+    },
+    "website": "https://www.hilltopresort.com"
+  }]
+  
