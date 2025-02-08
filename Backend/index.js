@@ -13,7 +13,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 const app = express();
 app.use(cookieParser());
-const frontendUrl = ["http://localhost:3000"];
+const frontendUrl = ["http://localhost:5175"];
 
 
 cloudinary.config({

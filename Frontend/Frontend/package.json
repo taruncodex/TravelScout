@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.3",
+    "axios": "^1.7.9",
     "axois": "^0.0.1-security",
     "firebase": "^11.3.0",
     "lucide-react": "^0.475.0",
