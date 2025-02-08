@@ -6,10 +6,10 @@ import { checkForToken } from "../controllers/auth.controller.js";
 const profileRouter = express.Router();
 
 //Protect routes using checkForToken middleware
-profileRouter.get("/:id", checkForToken, getUserProfile);
-profileRouter.put("/:id", checkForToken, updateUserProfile);
-profileRouter.post("/:id/preferences", checkForToken, updateUserPreferences);
-profileRouter.post("/:id/travel-history", checkForToken, addTravelHistory);
-profileRouter.post("/:id/add-wishlist", checkForToken, addWishlist);
-profileRouter.delete("/:id", checkForToken, deleteProfile);
+profileRouter.get("/:id", getUserProfile);
+profileRouter.put("/:id", updateUserProfile);
+profileRouter.post("/:id/preferences", updateUserPreferences);
+profileRouter.post("/:id/travel-history", addTravelHistory);
+profileRouter.post("/:id/add-wishlist", addWishlist);
+profileRouter.delete("/:id", deleteProfile);
 export default profileRouter;
