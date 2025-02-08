@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
-import app from "../../firebase";
-import { getDatabase, ref, get } from "firebase/database";
 
-const TravelCards1 = () => {
+const API_URL = "https://your-api-url.com/traveldata"; // Replace with your actual API URL
+
+const TravelCards = () => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const db = getDatabase();
-      const dbRef = ref(db, "/");
-      const snapshot = await get(dbRef);
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
-      if (snapshot.exists()) {
-        const data = snapshot.val();
         const allLocations = Object.values(data);
 
         // Filter locations by type
@@ -21,6 +19,8 @@ const TravelCards1 = () => {
         const luxury = allLocations.find(loc => loc.locationType.includes("Luxury"));
 
         setLocations([mountains, beaches, luxury].filter(Boolean));
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -40,4 +40,4 @@ const TravelCards1 = () => {
   );
 };
 
-export default TravelCards1;
+export default TravelCards;

@@ -16,12 +16,13 @@ function App() {
 
   return (
     <><Router>
-      <Navbar />
+      {/* <Navbar />
       <Carousel />
       <TravelType />
       <CityCards />
       <CountryCards />
-      <Footer />
+      <Footer /> */}
+      <AuthForm/>
     </Router>
     </>
   )
