@@ -10,14 +10,11 @@ import TravelType from "./components/TravelType"
 import CityCards from "./components/CityCards"
 import CountryCards from "./components/CountryCards"
 import AboutUs from "./components/AboutUs"
+import AuthForm from "./components/Signup"
 
 function App() {
 
   return (
-    // // <div className="flex items-center justify-center min-h-screen bg-gray-100 w-100%">
-    // //   <Navbar />
-    // //   <Carousel />
-    // // </div>
     <><Router>
       <Navbar />
       <Carousel />
