@@ -1,30 +1,32 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-
 import './App.css'
-import Navbar from './components/Navbar'
-import Signup from './components/Signup'
-import Footer from './components/Footer';
-import HotelPage from './components/HotelPage';
-// import Carousel from "./components/Carousel";
+import Carousel from "./components/Carousel";
+import Navbar from "./components/Navbar"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AdventureTravel from "./components/AdventureTravel"
+import Footer from "./components/Footer"
+import TravelCards1 from './components/TravelCards1';
+import TravelType from "./components/TravelType"
+import CityCards from "./components/CityCards"
+import CountryCards from "./components/CountryCards"
+import AboutUs from "./components/AboutUs"
 
 function App() {
 
   return (
-    // <div className="flex items-center justify-center min-h-screen bg-gray-100 w-100%">
-    //   {/* <Carousel /> */}
-    // </div>
-    <Router>
-  
-          <Navbar/>
-          <Signup/>
-          <Footer/>
-          <Routes>
-        <Route path="/hotel/:id" element={<HotelPage />} />
-      </Routes>
-  
+    // // <div className="flex items-center justify-center min-h-screen bg-gray-100 w-100%">
+    // //   <Navbar />
+    // //   <Carousel />
+    // // </div>
+    <><Router>
+      <Navbar />
+      <Carousel />
+      <TravelType />
+      <CityCards />
+      <CountryCards />
+      <Footer />
     </Router>
+    </>
   )
 }
 
