@@ -4,6 +4,7 @@ import { getHomePageData, getTrendingDestinations, getDiscoverDestinations, getU
 import Destination from "../models/destinationModel.js";
 import Hotel from "../models/hotelModel.js";
 import Review from "../models/reviewModel.js";
+import { checkForToken } from "../controllers/auth.controller.js"
 // Get top 3 trending cities for homepage
 siteRouter.get("/homepage", getHomePageData);
 
@@ -14,13 +15,12 @@ siteRouter.get("/trending", getTrendingDestinations);
 siteRouter.get("/discover", getDiscoverDestinations);
 
 // Get user's previous trips
-siteRouter.get("/mytrips", getUserTrips);
+siteRouter.get("/mytrips", checkForToken, getUserTrips);
 
 // Get adventure travel styles by location type
 siteRouter.get("/travelstyle/:locationType", getTravelStyles);
 
 siteRouter.get("/destination/:cityId", showDestination);
-
 
 siteRouter.post("/postdes", async (req, res) => {
     try {

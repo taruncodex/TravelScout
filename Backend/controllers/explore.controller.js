@@ -127,7 +127,7 @@ export const getUserTrips = async (req, res) => {
 
         //Fetch the user from the database and populate related destination details
         const userId = req.user._id;
-        const user = await User.findById(userId).populate("travelHistory.destination savedDestinations");
+        const user = await User.findById(userId).populate("travelHistory.destination ");
 
         if (!user) {
             return res.status(404).json({ msg: "User not found" });
@@ -145,9 +145,11 @@ export const getTravelStyles = async (req, res) => {
     try {
         // Take the locationType then fetch the data based on the fetch and send 
         const { locationType } = req.params;
-        console.info({ locationType });
+        console.info(locationType);
 
-        const data = await Destination.find({ locationType: locationType });
+        const data = await Destination.find({
+            locationType: { $in: [locationType] },
+        }, "name description location weather ");
         console.log(data);
 
         if (!data) {
@@ -165,8 +167,8 @@ export const getTravelStyles = async (req, res) => {
 export const showDestination = async (req, res) => {
     try {
         // Fetch the destination details along with related reviews & hotels
-        const { id } = req.params;
-        const destination = await Destination.findById(id).populate("reviews hotels");
+        const { cityId } = req.params;
+        const destination = await Destination.findById(cityId).populate("reviews hotels");
 
         if (!destination) {
             return res.status(404).json({ msg: "Destination not found" });
