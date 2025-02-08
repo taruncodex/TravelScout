@@ -10,6 +10,7 @@ import TravelType from "./components/TravelType"
 import CityCards from "./components/CityCards"
 import CountryCards from "./components/CountryCards"
 import AboutUs from "./components/AboutUs"
+import AuthForm from "./components/Signup"
 
 function App() {
 
@@ -19,12 +20,13 @@ function App() {
     // //   <Carousel />
     // // </div>
     <><Router>
-      <Navbar />
+      {/* <Navbar />
       <Carousel />
       <TravelType />
       <CityCards />
       <CountryCards />
-      <Footer />
+      <Footer /> */}
+      <AuthForm/>
     </Router>
     </>
   )

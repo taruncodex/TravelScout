@@ -12,7 +12,7 @@ import { siteRouter } from "./routers/travel.Scout.Routes.js";
 
 const app = express();
 app.use(cookieParser());
-const frontendUrl = ["http://localhost:3000"];
+const frontendUrl = ["http://localhost:5175"];
 
 const corsOptions = {
     origin: frontendUrl,
