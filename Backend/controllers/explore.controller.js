@@ -37,12 +37,20 @@ export const getHomePageData = async (req, res) => {
         }
         ]);
 
-        let cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"]; // Replace with your desired cities
+        let cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"];
 
-        const indianCities = await Destination.find(
-            { name: { $in: cities } } // Fetch only specified cities
-        );
-        console.log(indianCities);
+        const indianCities = await YourModel.aggregate([
+            { $match: { name: { $in: cities } } }, // Filter only required cities
+            {
+                $addFields: {
+                    orderIndex: { $indexOfArray: [cities, "$name"] } // Assign an index based on order
+                }
+            },
+            { $sort: { orderIndex: 1 } }, // Sort by the assigned index
+            { $project: { orderIndex: 0 } } // Remove the temporary index field
+        ]);
+        console.log(result);
+
 
         cities = ["Bangkok", "Phuket", "Pattaya", "Krabi"]; // Replace with your desired cities
 
