@@ -32,7 +32,7 @@ export const getHomePageData = async (req, res) => {
                 locationType: "$destination.locationType",
                 avgRating: 1,
                 totalReviews: 1,
-                images: 1
+                images: "$destination.images"
             }
         }
         ]);
@@ -41,7 +41,7 @@ export const getHomePageData = async (req, res) => {
 
         const indianCities = await Destination.find(
             { name: { $in: cities } }, // Fetch only specified cities
-            { name: 1, _id: 1, location: 1, description: 1, images: 1 }
+            { name: 1, _id: 1, location: 1, description: 1, images: 1, estimatedCost: 1 }
         );
         console.log(indianCities);
 
@@ -49,7 +49,7 @@ export const getHomePageData = async (req, res) => {
 
         const thailandCities = await Destination.find(
             { name: { $in: cities } }, // Fetch only specified cities
-            { name: 1, _id: 1, location: 1, description: 1, images: 1 }
+            { name: 1, _id: 1, location: 1, description: 1, images: 1, estimatedCost: 1 }
         );
         console.log(indianCities);
 
