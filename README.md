@@ -2,11 +2,7 @@
 
 ## About TravelScout
 
-TravelScout is a powerful destination recommendation platform designed to simplify travel planning. With the overwhelming number of destinations available, travelers often struggle to find places that align with their interests, budgets, and travel styles. TravelScout makes this process seamless by offering personalized suggestions based on user preferences and past travel experiences.
-
-By analyzing user preferences and travel history, TravelScout helps users discover ideal travel spots that match their unique style. Whether planning an adventurous getaway, a cultural expedition, or a relaxing retreat, our platform ensures a hassle-free and enjoyable travel discovery experience.
-
-With the plethora of travel destinations available, choosing the right place to visit can be overwhelming. Travelers often face challenges finding destinations matching their interests, budgets, and travel styles. A personalized recommendation platform can simplify this process by providing tailored suggestions based on user preferences and previous travel experiences, ultimately enhancing their travel planning and discovery.
+TravelScout simplifies travel planning by offering personalized destination recommendations based on user preferences and past experiences. With countless destinations available, travelers often struggle to find places that align with their interests, budgets, and styles. Our platform streamlines this process, helping users discover ideal travel spots, whether for adventure, culture, or relaxation. By analyzing preferences and travel history, TravelScout ensures a seamless and enjoyable journey planning experience
 
 
 ## Project Type
