@@ -5,12 +5,7 @@ import { User } from "../models/userModel.js"
 //Get Home Page Data (Trending & New Destinations)
 export const getHomePageData = async (req, res) => {
     try {
-
-        // It won't work in this way. First we need to populate the reviews from
-        // the reviews collection then make it flat then we can perform the given function
-        // We need aggregation for this
-
-        // //Fetch the top  highest-rated destinations & latest 3 destinations, Sort in descending order
+        //Fetch the top  highest-rated destinations & latest 3 destinations, Sort in descending order
 
         const data = await Review.aggregate([{
             $group: {
@@ -53,13 +48,9 @@ export const getHomePageData = async (req, res) => {
 export const getTrendingDestinations = async (req, res) => {
     try {
 
-        // Similar logic as getHomePageData
-
-        //Fetch the top destinations with the highest rating & Sort by rating in descending order
-
         // Using aggregation to get top 10 destination data 
 
-        // group -> dort -> lookup -> unwind -> project .
+        // group -> dort -> lookup -> unwind -> project.
         const data = await Review.aggregate([{
             $group: {
                 _id: "$destinationId",
@@ -99,7 +90,7 @@ export const getTrendingDestinations = async (req, res) => {
 //Get Discover Destinations (Random Picks)
 export const getDiscoverDestinations = async (req, res) => {
     try {
-        //Fetch destinations from the database and limit to 10 documents.
+        // Fetch destinations from the database and limit to 10 documents.
         const discoverDestinations = await Destination.aggregate([{ $match: {} }, {
             $limit: 10
         }, {
@@ -124,10 +115,9 @@ export const getDiscoverDestinations = async (req, res) => {
 export const getUserTrips = async (req, res) => {
     try {
 
-
         //Fetch the user from the database and populate related destination details
         const userId = req.user._id;
-        const user = await User.findById(userId).populate("travelHistory.destination ");
+        const user = await User.findById(userId).populate("travelHistory.destination");
 
         if (!user) {
             return res.status(404).json({ msg: "User not found" });

@@ -16,7 +16,7 @@ const hotelSchema = new mongoose.Schema({
         roomTypes: [{ type: String, enum: ["Deluxe", "Suite", "Family", "Standard", "Executive", "Royal Suite", "Presidential Suite"] }],
 
         contact: {
-                phone: { type: String, match: [/^\d{10}$/, "Phone number must be 10 digits"] },
+                phone: { type: String },
                 email: { type: String, match: [/^\S+@\S+\.\S+$/, "Invalid email format"] }
         },
         website: { type: String }

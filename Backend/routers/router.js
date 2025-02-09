@@ -9,7 +9,7 @@ authRouter.post("/forgot-password", checkForToken, forgotPassword);
 authRouter.post("/reset-password/:token", checkForToken, resetPassword);
 authRouter.post("/", async (req, res) => {
     try {
-        return res.json({msg : "This is homePage."});
+        return res.json({ msg: "This is homePage." });
     } catch (error) {
         return res.json({ error: error.message });
     }

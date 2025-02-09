@@ -9,10 +9,41 @@ import { authRouter } from "./routers/router.js";
 import profileRouter from "./routers/profileRoutes.js";
 import { checkForToken } from "./controllers/auth.controller.js";
 import { siteRouter } from "./routers/travel.Scout.Routes.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const app = express();
 app.use(cookieParser());
-const frontendUrl = ["http://localhost:3000"];
+const frontendUrl = ["http://localhost:5175"];
+
+
+cloudinary.config({
+    cloud_name: "dzm4uznev",
+    secure: true,
+    api_key: "873185129198643",
+    api_secret: "VuO5JargzAzm85d_fBPyaJN6q3E"
+})
+
+const url = cloudinary.url("delhi_bm3okt", {
+    transformation: [{
+        fetch_format: 'auto',
+        quality: 'auto',
+        }]
+    // },
+    // {
+    //     width: 200,
+    //     height: 200
+    // }]
+});
+console.log(url);
+
+// Transform the image: auto-crop to square aspect_ratio
+const autoCropUrl = cloudinary.url('delhi_bm3okt', {
+    crop: 'auto',
+    gravity: 'auto',
+    width: 500,
+    height: 500,
+});
+
 
 const corsOptions = {
     origin: frontendUrl,
@@ -20,6 +51,8 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
 };
+
+
 
 app.use(cors(corsOptions));
 app.use(express.json());

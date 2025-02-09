@@ -1,16 +1,39 @@
 import { useState } from "react";
+import axios from "axios"; // ✅ Correct spelling
+
 
 export default function AuthForm() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
   const [isSignUp, setIsSignUp] = useState(true);
-  
+  const [message, setMessage] = useState("")
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(`${isSignUp ? "Sign Up" : "Sign In"} Submitted`, form);
+
+    try {
+      if (isSignUp) {
+        // ✅ Make a POST request to signup API
+        const response = await axios.post("https://travelscout.onrender.com/signup", form);
+
+        setMessage(response.data.message); // ✅ Show success message
+        setForm({ name: "", email: "", phone: "", password: "" }); // ✅ Clear the form fields
+      } else {
+        // ✅ Make a POST request to signin API
+        const response = await axios.post("http://localhost:3000/login", {
+          email: form.email,
+          password: form.password,
+        });
+
+        setMessage(response.data.message); // ✅ Show success message
+        console.log(response.data)
+      }
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Something went wrong. Please try again."); // ❌ Show error message
+    }
   };
 
   const toggleForm = () => {
