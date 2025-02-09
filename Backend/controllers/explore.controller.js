@@ -39,13 +39,21 @@ export const getHomePageData = async (req, res) => {
 
         const cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"]; // Replace with your desired cities
 
-        const result = await Destination.find(
+        const indianCities = await Destination.find(
             { name: { $in: cities } } // Fetch only specified cities
         );
-        console.log(result);
-        
+        console.log(indianCities);
+
+        cities = ["Bangkok", "Phuket", "Pattaya", "Krabi"]; // Replace with your desired cities
+
+        const thailandCities = await Destination.find(
+            { name: { $in: cities } } // Fetch only specified cities
+        );
+        console.log(indianCities);
+
+
         console.info({ data });
-        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities: data, thailandCities: data });
+        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities, thailandCities: data });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
