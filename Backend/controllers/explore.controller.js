@@ -55,7 +55,7 @@ export const getHomePageData = async (req, res) => {
 
 
         console.info({ data });
-        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities, thailandCities: data });
+        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities, thailandCities });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
