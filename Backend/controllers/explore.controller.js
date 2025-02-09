@@ -37,7 +37,7 @@ export const getHomePageData = async (req, res) => {
         }
         ]);
 
-        const cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"]; // Replace with your desired cities
+        let cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"]; // Replace with your desired cities
 
         const indianCities = await Destination.find(
             { name: { $in: cities } } // Fetch only specified cities
