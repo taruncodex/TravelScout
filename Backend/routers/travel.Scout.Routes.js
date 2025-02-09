@@ -59,9 +59,16 @@ siteRouter.post("/postreview", async (req, res) => {
 
 
 // get hotel Route---->
-siteRouter.get("/gethotel", async(req,res)=>{
+siteRouter.get("/gethotel/:hotelid", async (req, res) => {
     try {
+        const { hotelid } = req.params; 
+
         const hotels = await Hotel.aggregate([
+            //Filter the hotel by `hotelid`
+            { 
+                $match: { _id: new mongoose.Types.ObjectId(hotelid) } 
+            },
+
             //Join with Destination Collection
             {
                 $lookup: {
@@ -71,6 +78,7 @@ siteRouter.get("/gethotel", async(req,res)=>{
                     as: "destinationDetails"
                 }
             },
+
             //Join with Reviews Collection
             {
                 $lookup: {
@@ -80,17 +88,25 @@ siteRouter.get("/gethotel", async(req,res)=>{
                     as: "hotelReviews"
                 }
             },
-            //Format Response (Convert array fields to objects)
+
+            // Format Response (Convert array fields to objects)
             {
                 $addFields: {
                     destinationDetails: { $arrayElemAt: ["$destinationDetails", 0] }
                 }
             }
         ]);
-        return res.status(200).json(hotels);
+
+        //If no hotel found, return 404
+        if (!hotels.length) {
+            return res.status(404).json({ msg: "Hotel not found" });
+        }
+        // Return only the first match (Single Hotel)
+        return res.status(200).json(hotels[0]); 
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
-})
+});
+
 
 export { siteRouter }; 
