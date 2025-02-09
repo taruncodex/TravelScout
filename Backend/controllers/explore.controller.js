@@ -36,8 +36,9 @@ export const getHomePageData = async (req, res) => {
         }
 
         ])
+
         console.info({ data });
-        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data });
+        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data  , indianCities:data , thailandCities: data });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
@@ -76,6 +77,7 @@ export const getTrendingDestinations = async (req, res) => {
                 locationType: "$destination.locationType",
                 avgRating: 1,
                 totalReviews: 1,
+
             }
         }
 
