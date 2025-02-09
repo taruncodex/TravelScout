@@ -37,7 +37,7 @@ export const getHomePageData = async (req, res) => {
         }
         ]);
 
-        let cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"];
+        const cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"];
 
         const indianCities = await Destination.find(
             { name: { $in: cities } }, // Fetch only specified cities
@@ -45,10 +45,10 @@ export const getHomePageData = async (req, res) => {
         );
         console.log(indianCities);
 
-        cities = ["Bangkok", "Phuket", "Pattaya", "Krabi"];
+        const cities2 = ["Bangkok", "Phuket", "Pattaya", "Krabi"];
 
         const thailandCities = await Destination.find(
-            { name: { $in: cities } }, // Fetch only specified cities
+            { name: { $in: cities2 } }, // Fetch only specified cities
             { name: 1, _id: 1, location: 1, description: 1, images: 1, estimatedCost: 1 }
         );
         console.log(indianCities);
