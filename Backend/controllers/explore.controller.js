@@ -37,9 +37,13 @@ export const getHomePageData = async (req, res) => {
         }
         ]);
 
-      
+        const cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"]; // Replace with your desired cities
 
-
+        const result = await Destination.find(
+            { name: { $in: cities } } // Fetch only specified cities
+        );
+        console.log(result);
+        
         console.info({ data });
         return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities: data, thailandCities: data });
     } catch (error) {
