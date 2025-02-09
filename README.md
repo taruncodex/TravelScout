@@ -127,7 +127,7 @@ Use the following test credentials to explore the app's authenticated features:
 
 ### User Authentication
 
-- `POST /signupr` - Register a new user
+- `POST /signup` - Register a new user
 - `POST /login` - Authenticate user
 
 ### Destination Recommendations
