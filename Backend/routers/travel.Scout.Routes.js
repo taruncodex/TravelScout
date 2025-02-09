@@ -23,6 +23,7 @@ siteRouter.get("/travelstyle/:locationType", getTravelStyles);
 
 siteRouter.get("/destination/:cityId", showDestination);
 
+
 siteRouter.post("/postdes", async (req, res) => {
     try {
         console.log(req.body);
