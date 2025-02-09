@@ -49,7 +49,7 @@ export const getHomePageData = async (req, res) => {
             { $sort: { orderIndex: 1 } }, // Sort by the assigned index
             { $project: { orderIndex: 0 } } // Remove the temporary index field
         ]);
-        console.log(result);
+        console.log(indianCities);
 
 
         cities = ["Bangkok", "Phuket", "Pattaya", "Krabi"]; // Replace with your desired cities
