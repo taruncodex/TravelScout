@@ -158,7 +158,7 @@ export const getTravelStyles = async (req, res) => {
 
         const data = await Destination.find({
             locationType: { $in: [locationType] },
-        }, "name description location weather ");
+        }, "name description location weather images ");
         console.log(data);
 
         if (!data) {
