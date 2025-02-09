@@ -19,7 +19,7 @@ const destinationSchema = new mongoose.Schema({
 
   locationType: [
     {
-      type: String, enum: ["Mountains", "Forest", "Nature", "junglesafari", "Beach", "Luxury", "Trekking", "Nightlife", "Desert", "Island", "Entertainment", "Spiritual", "Heritage", "Cultural", "Religious", "Festival"],
+      type: String, enum: ["Mountains", "Forest", "Nature", "Jungle", "Beach", "Luxury", "Trekking", "Nightlife", "Desert", "Island", "Entertainment", "Spiritual", "Heritage", "Cultural", "Religious", "Festival"],
     },
   ],
 

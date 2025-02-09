@@ -94,7 +94,7 @@ export const getTrendingDestinations = async (req, res) => {
                 locationType: "$destination.locationType",
                 avgRating: 1,
                 totalReviews: 1,
-
+                images: "$destination.images"
             }
         }
 
@@ -121,7 +121,8 @@ export const getDiscoverDestinations = async (req, res) => {
                 locationType: 1,
                 bestTimeToVisit: 1,
                 weather: 1,
-                estimatedCost: 1
+                estimatedCost: 1,
+                images: 1
             }
         }])
         return res.status(200).json({ cities: discoverDestinations });
