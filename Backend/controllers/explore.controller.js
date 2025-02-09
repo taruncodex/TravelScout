@@ -35,8 +35,10 @@ export const getHomePageData = async (req, res) => {
                 images: 1
             }
         }
-
         ]);
+
+      
+
 
         console.info({ data });
         return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities: data, thailandCities: data });
