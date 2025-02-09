@@ -58,4 +58,39 @@ siteRouter.post("/postreview", async (req, res) => {
 })
 
 
+// get hotel Route---->
+siteRouter.get("/gethotel", async(req,res)=>{
+    try {
+        const hotels = await Hotel.aggregate([
+            //Join with Destination Collection
+            {
+                $lookup: {
+                    from: "destinations", 
+                    localField: "destinationId",
+                    foreignField: "_id",
+                    as: "destinationDetails"
+                }
+            },
+            //Join with Reviews Collection
+            {
+                $lookup: {
+                    from: "reviews",
+                    localField: "reviews",
+                    foreignField: "_id",
+                    as: "hotelReviews"
+                }
+            },
+            //Format Response (Convert array fields to objects)
+            {
+                $addFields: {
+                    destinationDetails: { $arrayElemAt: ["$destinationDetails", 0] }
+                }
+            }
+        ]);
+        return res.status(200).json(hotels);
+    } catch (error) {
+        return res.status(500).json({ msg: "Internal Server Error", err: error.message });
+    }
+})
+
 export { siteRouter }; 
