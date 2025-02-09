@@ -1,100 +1,134 @@
 ### TravelScout - Destination Recommendation Platform
 
-## Introduction
+## About TravelScout
 
-With the plethora of travel destinations available, choosing the right place to visit can be overwhelming. Travelers often face challenges in finding destinations that match their interests, budget, and travel style. TravelScout simplifies this process by providing tailored suggestions based on user preferences and previous travel experiences, ultimately enhancing their travel planning and discovery.
+TravelScout is a powerful destination recommendation platform designed to simplify travel planning. With the overwhelming number of destinations available, travelers often struggle to find places that align with their interests, budgets, and travel styles. TravelScout makes this process seamless by offering personalized suggestions based on user preferences and past travel experiences.
+
+By analyzing user preferences and travel history, TravelScout helps users discover ideal travel spots that match their unique style. Whether planning an adventurous getaway, a cultural expedition, or a relaxing retreat, our platform ensures a hassle-free and enjoyable travel discovery experience.
+
+With the plethora of travel destinations available, choosing the right place to visit can be overwhelming. Travelers often face challenges finding destinations matching their interests, budgets, and travel styles. A personalized recommendation platform can simplify this process by providing tailored suggestions based on user preferences and previous travel experiences, ultimately enhancing their travel planning and discovery.
+
 
 ## Project Type
 
-Fullstack
+**Fullstack Application**
 
-## Deployed App
+## Deployed Application
 
-Frontend: https://deployed-site.whatever
-Backend:  https://travelscout.onrender.com
-Database: https://travelscout.onrender.com
+- **Frontend:** [Live Site](https://deployed-site.whatever)
+- **Backend:** [API Server](https://travelscout.onrender.com)
+- **Database:** Hosted on MongoDB Atlas
 
 ## Directory Structure
 
+```
 travel-scout/
 ├─ backend/
-    ├─ controllers/
-    ├─ middlewares/
-    ├─ models/  
-    ├─ node_modules/  
-    └─ server.js
-├─ Frontend/
-    ├─ Frontend/
-        ├─ public/
-        ├─ src/
-           ├─ assets/
-           ├─ components/
-           ├─ styles/
-           ├─ App.css
-           ├─ App.jsx
-           ├─ index.css
-           ├─ main.jsx
+│   ├─ controllers/
+│   ├─ middlewares/
+│   ├─ models/
+│   ├─ node_modules/
+│   ├─ config/
+│   ├─ routes/
+│   ├─ utils/
+│   └─ index.js
+├─ frontend/
+│   ├─ public/
+│   ├─ src/
+│   │   ├─ assets/
+│   │   ├─ components/
+│   │   ├─ App.css
+│   │   ├─ App.jsx
+│   │   ├─ index.css
+│   │   └─ main.jsx
 └─ README.md
+```
 
-## Video Walkthrough of the Project
+## Video Walkthroughs
 
-Attach a very short video walkthrough of all the features [1 - 3 minutes]
+### Project Overview
 
-## Video Walkthrough of the Codebase
+Attach a short video walkthrough of all the features **(1 - 3 minutes)**.
 
-Attach a very short video walkthrough of the codebase [1 - 5 minutes]
+### Codebase Overview
+
+Attach a short video walkthrough of the codebase **(1 - 5 minutes)**.
 
 ## Features
 
-- **User Authentication**: Secure registration and login via email/Phone and password.
-- **Dynamic Recommendation Engine:** Personalized travel destination suggestions.
-- **User Reviews and Ratings:** Users can submit experiences, reviews, and ratings.
-- **Interactive Destination Map:** Visual representation of recommended locations.
-- **Personalized Itineraries:** Users can plan activities and manage their schedule.
-- **Social Sharing Features:** Share favorite destinations and itineraries.
-- **Destination Comparison Tool:** Side-by-side comparison of multiple destinations.
-- **Trending Destinations Section:** Showcases popular locations based on seasonal trends.
-- **Mobile Responsiveness:** Optimized experience across devices.
-- **User Profiles and History Tracking:** Saves user preferences and past trips.
+✅ **User Authentication:** Secure email/phone registration and login with password.
 
-## Design Decisions or Assumptions
+✅ **User Reviews & Ratings:** Users can share experiences, reviews, and ratings..
 
-List your design decisions & assumptions
+✅ **Custom Itineraries:** Users can plan activities and manage their schedules.
+
+✅ **Social Sharing:** Share favorite destinations and itineraries.
+
+✅ **Trending Destinations:** Showcases popular locations based on seasonal trends.
+
+✅ **Mobile-Friendly UI:** Optimized experience across all devices.
+
+✅ **User Profiles & History Tracking:** Saves user preferences and past trips
+
+
+
+
+## Design Decisions & Assumptions
+
+- User-friendly and intuitive UI/UX for seamless navigation.
+- Secure authentication and data storage for enhanced security.
+- Scalability considerations to accommodate future enhancements.
 
 ## Installation & Getting Started
 
-Detailed instructions on how to install, configure, and get the project running.
+Follow the steps below to install and run the project locally:
 
 ```bash
-npm install travel-scout
+# Clone the repository
+git clone https://github.com/your-repo/travel-scout.git
 cd travel-scout
-npm start
+
+# Install dependencies
+npm install
+
+# Start the backend
+cd backend
+node index.js
+
+# Start the frontend
+cd ../frontend
+npm install
+npm run dev
 ```
 
 ## Usage
 
-Provide instructions and examples on how to use TravelScout.
+Personalized Travel Planning: Get tailored destination recommendations based on your interests and past travel history.
+User Profiles & History Tracking: Save past trips and preferences for better recommendations.
+Social Sharing & Reviews: Share your travel experiences, read reviews, and get insights from other travelers.
 
 ```bash
-# Example
+# Example command to fetch recommended destinations
+curl -X POST https://travelscout.onrender.com/recommendations \
+     -H "Content-Type: application/json" \
+     -d '{ "interests": ["adventure", "beach"] }'
 ```
 
-Include screenshots as necessary.
+Include relevant screenshots to demonstrate key features.
 
-## Credentials
+## Demo Credentials
 
-Provide user credentials for authenticated pages
+Use the following test credentials to explore the app's authenticated features:
 
-## APIs Used
-
-List of external APIs and references used in the project.
+- **Email:** tarunrathore200@gmail.com
+- **Password:** 12345
 
 ## API Endpoints
 
 ### User Authentication
 
-- `POST /auth/register` - Register a new user
-- `POST /auth/login` - Authenticate user
+- `POST /signupr` - Register a new user
+- `POST /login` - Authenticate user
 
 ### Destination Recommendations
 
@@ -113,12 +147,17 @@ List of external APIs and references used in the project.
 
 ## Technology Stack
 
-- **Frontend:** React.js, socket.io-client
-- **Backend:** Node.js, Express.js, socket.io
-- **Database:** MongoDB
+- **Frontend:** React.js, Vite
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB Atlas
 - **Authentication & Security:** JSON Web Tokens (JWT), Bcrypt
-- **Additional Libraries:** Nodemailer, CORS, dotenv
+- **Additional Libraries:** Nodemailer, CORS, dotenv, Axios
 
 ## Contributors
 
-List contributors or team members involved in the project.
+- [Tarun Rathore](https://github.com/taruncodex)
+- [Abhishek Joshi](https://github.com/abhishekjoshi1998)
+- [Abhishek Nalawade](https://github.com/AbhiNalawade09)
+- [Biman](https://github.com/Biman721443)
+
+List contributors or team members involved in the project. If applicable, include links to their GitHub profiles.
