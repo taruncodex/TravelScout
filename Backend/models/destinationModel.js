@@ -4,7 +4,7 @@ const destinationSchema = new mongoose.Schema({
   name: { type: String, required: true }, // Destination name (e.g., Mussoorie)
   location: { type: String, required: true },
   description: { type: String, required: true },
-
+  images: [{ type: String }],
   coordinates: { // Geo-coordinates for map integration
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
@@ -19,7 +19,7 @@ const destinationSchema = new mongoose.Schema({
 
   locationType: [
     {
-      type: String, enum: ["Mountains", "Forest", "Nature", "Beach", "Luxury", "Trekking", "Nightlife","Island", "Entertainment", "Spiritual", "Heritage", "Cultural", "Religious", "Festival"],
+      type: String, enum: ["Mountains", "Forest", "Nature", "Beach", "Luxury", "Trekking", "Nightlife", "Island", "Entertainment", "Spiritual", "Heritage", "Cultural", "Religious", "Festival"],
     },
   ],
 

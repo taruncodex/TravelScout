@@ -32,13 +32,14 @@ export const getHomePageData = async (req, res) => {
                 locationType: "$destination.locationType",
                 avgRating: 1,
                 totalReviews: 1,
+                images: 1
             }
         }
 
-        ])
+        ]);
 
         console.info({ data });
-        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data  , indianCities:data , thailandCities: data });
+        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities: data, thailandCities: data });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
