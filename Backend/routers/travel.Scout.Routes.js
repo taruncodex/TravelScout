@@ -5,6 +5,7 @@ import Destination from "../models/destinationModel.js";
 import Hotel from "../models/hotelModel.js";
 import Review from "../models/reviewModel.js";
 import { checkForToken } from "../controllers/auth.controller.js"
+import mongoose from "mongoose";
 // Get top 3 trending cities for homepage
 siteRouter.get("/homepage", getHomePageData);
 
@@ -58,21 +59,22 @@ siteRouter.post("/postreview", async (req, res) => {
 })
 
 
+
 // get hotel Route---->
 siteRouter.get("/gethotel/:hotelid", async (req, res) => {
     try {
-        const { hotelid } = req.params; 
+        const { hotelid } = req.params;
 
         const hotels = await Hotel.aggregate([
             //Filter the hotel by `hotelid`
-            { 
-                $match: { _id: new mongoose.Types.ObjectId(hotelid) } 
+            {
+                $match: { _id: new mongoose.Types.ObjectId(hotelid) }
             },
 
             //Join with Destination Collection
             {
                 $lookup: {
-                    from: "destinations", 
+                    from: "destinations",
                     localField: "destinationId",
                     foreignField: "_id",
                     as: "destinationDetails"
@@ -102,7 +104,7 @@ siteRouter.get("/gethotel/:hotelid", async (req, res) => {
             return res.status(404).json({ msg: "Hotel not found" });
         }
         // Return only the first match (Single Hotel)
-        return res.status(200).json(hotels[0]); 
+        return res.status(200).json(hotels[0]);
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
