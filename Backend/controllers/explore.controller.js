@@ -39,7 +39,7 @@ export const getHomePageData = async (req, res) => {
 
         let cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"];
 
-        const indianCities = await YourModel.aggregate([
+        const indianCities = await Destination.aggregate([
             { $match: { name: { $in: cities } } }, // Filter only required cities
             {
                 $addFields: {
