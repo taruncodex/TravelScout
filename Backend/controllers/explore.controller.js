@@ -37,31 +37,23 @@ export const getHomePageData = async (req, res) => {
         }
         ]);
 
-        let cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"];
+        let cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"]; // Replace with your desired cities
 
-        const indianCities = await Destination.aggregate([
-            { $match: { name: { $in: cities } } }, // Filter only required cities
-            {
-                $addFields: {
-                    orderIndex: { $indexOfArray: [cities, "$name"] } // Assign an index based on order
-                }
-            },
-            { $sort: { orderIndex: 1 } }, // Sort by the assigned index
-            { $project: { orderIndex: 0 } } // Remove the temporary index field
-        ]);
+        const indianCities = await Destination.find(
+            { name: { $in: cities } } // Fetch only specified cities
+        );
         console.log(indianCities);
-
 
         cities = ["Bangkok", "Phuket", "Pattaya", "Krabi"]; // Replace with your desired cities
 
         const thailandCities = await Destination.find(
             { name: { $in: cities } } // Fetch only specified cities
         );
-        console.log(indianCities);
+        console.log(thailandCities);
 
 
         console.info({ data });
-        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities, thailandCities: data });
+        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities, thailandCities });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
