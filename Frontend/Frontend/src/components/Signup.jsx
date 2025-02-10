@@ -1,11 +1,21 @@
-import { useState } from "react";
-import axios from "axios"; // ✅ Correct spelling
-
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function AuthForm() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
   const [isSignUp, setIsSignUp] = useState(true);
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -15,24 +25,29 @@ export default function AuthForm() {
     console.log(`${isSignUp ? "Sign Up" : "Sign In"} Submitted`, form);
 
     try {
-      if (isSignUp) {
-        // ✅ Make a POST request to signup API
-        const response = await axios.post("https://travelscout.onrender.com/signup", form);
+      const url = isSignUp
+        ? "https://travelscout.onrender.com/signup"
+        : "https://travelscout.onrender.com/login";
+      
+      const payload = isSignUp ? form : { email: form.email, password: form.password };
 
-        setMessage(response.data.message); // ✅ Show success message
-        setForm({ name: "", email: "", phone: "", password: "" }); // ✅ Clear the form fields
-      } else {
-        // ✅ Make a POST request to signin API
-        const response = await axios.post("http://localhost:3000/login", {
-          email: form.email,
-          password: form.password,
-        });
+      const response = await axios.post(url, payload, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-        setMessage(response.data.message); // ✅ Show success message
-        console.log(response.data)
+      setMessage(response.data.message || "Success!");
+      console.log("Server Response:", response.data);
+
+      setForm({ name: "", email: "", phone: "", password: "" }); // Reset form after success
+      
+      if (!isSignUp) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setIsAuthenticated(true);
+        navigate("/"); // Redirect to homepage after successful login
       }
     } catch (error) {
-      setMessage(error.response?.data?.message || "Something went wrong. Please try again."); // ❌ Show error message
+      console.error("Error Response:", error.response?.data);
+      setMessage(error.response?.data?.message || "Something went wrong. Please try again.");
     }
   };
 
@@ -42,9 +57,7 @@ export default function AuthForm() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-[#1E3A5F] to-[#0F172A]">
-      <div
-        className="bg-white p-8 rounded-lg shadow-lg w-96 transition-all duration-500 hover:shadow-2xl hover:bg-[#f7fafc] cursor-pointer"
-      >
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96 transition-all duration-500 hover:shadow-2xl hover:bg-[#f7fafc] cursor-pointer">
         <h2 className="text-3xl font-bold text-center text-[#1E3A5F]">{isSignUp ? "Sign Up" : "Sign In"}</h2>
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
           {isSignUp && (
@@ -94,6 +107,7 @@ export default function AuthForm() {
             {isSignUp ? "Sign Up" : "Sign In"}
           </button>
         </form>
+        {message && <p className="text-center text-red-500 mt-4">{message}</p>}
         <div className="mt-4 text-center">
           <button
             onClick={toggleForm}

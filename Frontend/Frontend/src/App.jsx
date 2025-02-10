@@ -1,12 +1,16 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import './App.css';
-
-import Homepage from "./components/Homepage";
-
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./components/routes"; // Import updated routes
+import Signup from "./components/Signup"
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 function App() {
   return (
     <Router>
-     <Homepage/>
+       <Navbar/>
+      <AppRoutes />
+      <Footer/>
+      {/* <Signup/> */}
     </Router>
   );
 }
