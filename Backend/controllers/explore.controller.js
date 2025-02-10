@@ -32,12 +32,30 @@ export const getHomePageData = async (req, res) => {
                 locationType: "$destination.locationType",
                 avgRating: 1,
                 totalReviews: 1,
+                images: "$destination.images"
             }
         }
+        ]);
 
-        ])
+        const cities = ["Jaipur", "Delhi", "Mumbai", "Bangalore"];
+
+        const indianCities = await Destination.find(
+            { name: { $in: cities } }, // Fetch only specified cities
+            { name: 1, _id: 1, location: 1, description: 1, images: 1, estimatedCost: 1 }
+        );
+        console.log(indianCities);
+
+        const cities2 = ["Bangkok", "Phuket", "Pattaya", "Krabi"];
+
+        const thailandCities = await Destination.find(
+            { name: { $in: cities2 } }, // Fetch only specified cities
+            { name: 1, _id: 1, location: 1, description: 1, images: 1, estimatedCost: 1 }
+        );
+        console.log(indianCities);
+
+
         console.info({ data });
-        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data });
+        return res.status(200).json({ msg: "Top 3 Trending Destinations: ", cities: data, indianCities, thailandCities });
     } catch (error) {
         return res.status(500).json({ msg: "Internal Server Error", err: error.message });
     }
@@ -76,6 +94,7 @@ export const getTrendingDestinations = async (req, res) => {
                 locationType: "$destination.locationType",
                 avgRating: 1,
                 totalReviews: 1,
+                images: "$destination.images"
             }
         }
 
@@ -102,7 +121,8 @@ export const getDiscoverDestinations = async (req, res) => {
                 locationType: 1,
                 bestTimeToVisit: 1,
                 weather: 1,
-                estimatedCost: 1
+                estimatedCost: 1,
+                images: 1
             }
         }])
         return res.status(200).json({ cities: discoverDestinations });
@@ -139,7 +159,7 @@ export const getTravelStyles = async (req, res) => {
 
         const data = await Destination.find({
             locationType: { $in: [locationType] },
-        }, "name description location weather ");
+        }, "name description location weather images ");
         console.log(data);
 
         if (!data) {

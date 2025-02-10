@@ -13,7 +13,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 const app = express();
 app.use(cookieParser());
-const frontendUrl = ["http://localhost:5175"];
+
 
 
 cloudinary.config({
@@ -27,7 +27,7 @@ const url = cloudinary.url("delhi_bm3okt", {
     transformation: [{
         fetch_format: 'auto',
         quality: 'auto',
-        }]
+    }]
     // },
     // {
     //     width: 200,
@@ -45,15 +45,13 @@ const autoCropUrl = cloudinary.url('delhi_bm3okt', {
 });
 
 
+const frontendUrl = ["http://localhost:5175", "http://localhost:5177", "http://localhost:5174", "http://localhost:5173"];
 const corsOptions = {
     origin: frontendUrl,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
 };
-
-
-
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
