@@ -45,7 +45,7 @@ const autoCropUrl = cloudinary.url('delhi_bm3okt', {
 });
 
 
-const frontendUrl = ["https://travel-scout-liard.vercel.app/", "http://localhost:5173"];
+const frontendUrl = ["https://travel-scout-liard.vercel.app", "http://localhost:5173"];
 const corsOptions = {
     origin: frontendUrl,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
