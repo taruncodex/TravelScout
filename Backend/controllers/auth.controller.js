@@ -134,9 +134,10 @@ export const loginUser = async (req, res) => {
         });
 
         console.log(req.cookies);
-
+        console.log(user);
+        
         // Send role of the user with success message. 
-        res.status(200).json({ message: "login successful" });
+        res.status(200).json({ message: "login successful", user });
     } catch (error) {
         console.log({ err: error.message });
         return res.status(401).json({ err: error.message });
