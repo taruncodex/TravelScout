@@ -130,27 +130,27 @@ Use the following test credentials to explore the app's authenticated features:
 
   ### User Profile :
 
-- `GET      /user/:id`                 -  Get User Profile Data.
-- `PUT      /user/:id`                 -  Update the user Profile details.
-- `DELETE   /:id`                      -  Delete the user profile.
-- `PUT      /user/:id/preference`      -  Update the user Preferences.
-- `POST     /user/:id/travel-history`  -  Add the TravelHistory data.
-- `POST     /user/add-wishlist`        -  Add a destination into the wishlist.
+- `GET /user/:id`                 -  Get User Profile Data.
+- `PUT /user/:id`                 -  Update the user Profile details.
+- `DELETE /:id`                      -  Delete the user profile.
+- `PUT /user/:id/preference`       -  Update the user Preferences.
+- `POST /user/:id/travel-history`  -  Add the TravelHistory data.
+- `POST /user/add-wishlist`        -  Add a destination into the wishlist.
   
 ### Destination Recommendations
 
-- `POST     /recommendations`     -  Get personalized destination suggestions.
-- `GET      /destinations`        -  Fetch all available destinations.
-- `Get      /discover`            -  Get the recommended cities by us to explore.
-- `GET      /trending`            -  Get the top 10 trending Destinations.
-- `GET      /mytrips`             -  Get the previous trips of the User.
-- `GET      /destination/:cityId  -  Get the Detailed information about the chooded city.
+- `POST /recommendations`     -  Get personalized destination suggestions.
+- `GET  /destinations`        -  Fetch all available destinations.
+- `Get  /discover`            -  Get the recommended cities by us to explore.
+- `GET  /trending`            -  Get the top 10 trending Destinations.
+- `GET  /mytrips`             -  Get the previous trips of the User.
+- `GET  /destination/:cityId  -  Get the Detailed information about the chooded city.
  
 ### User Preferences
 
-- `POST     /preferences`               - Save user preferences
-- `GET      /preferences`               - Retrieve stored preferences
-- `GET      /travelstyle/:locationType  - Recommend the destinations based on the choosed Location Type
+- `POST /preferences`               - Save user preferences
+- `GET  /preferences`               - Retrieve stored preferences
+- `GET  /travelstyle/:locationType  - Recommend the destinations based on the choosed Location Type
 
 ## Technology Stack
 
