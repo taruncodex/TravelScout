@@ -11,7 +11,7 @@ TravelScout simplifies travel planning by offering personalized destination reco
 
 ## Deployed Application
 
-- **Frontend:** [Live Site](https://deployed-site.whatever)
+- **Frontend:** [Live Site](https://travel-scout-liard.vercel.app/)
 - **Backend:** [API Server](https://travelscout.onrender.com)
 - **Database:** Hosted on MongoDB Atlas
 
